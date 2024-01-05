@@ -77,7 +77,7 @@ def pipeline():
     segmentation = get_segmentation()
     segmentation = convert_str_to_array(segmentation)
     img_size = get_height_and_width_of_img(
-        "./yolo/yolo_predictions/medicakolkata_rcu_mon--8_2022_5_18_17_5_38.jpeg"
+        "ex.jpeg"
     )
     polygon = from_normalised_to_pixel(img_size, segmentation)
     polygon = segmentation2polygon(polygon)
@@ -92,7 +92,7 @@ def draw_points(polygon) -> None:
     Output: None
     """
     img = cv2.imread(
-        "./yolo/yolo_predictions/medicakolkata_rcu_mon--8_2022_5_18_17_5_38.jpeg"
+        "ex.jpeg"
     )
     for i in polygon:
         cv2.circle(img, (i[0], i[1]), 5, (0, 0, 255), -1)
@@ -129,15 +129,22 @@ def do_perspective_transformation(image, input_array):
 
 
 if __name__ == "__main__":
-    approx_polygon = pipeline().reshape((-1, 2))
+    '''approx_polygon = np.array([[  42 , 12],
+ [  72 , 692],
+ [1252 , 684],
+ [1236 ,  10]])
+
     print(len(approx_polygon))
     draw_points(approx_polygon)
     perspective = do_perspective_transformation(
         cv2.imread(
-            "./yolo/yolo_predictions/medicakolkata_rcu_mon--8_2022_5_18_17_5_38.jpeg"
+            "ex.jpeg"
         ),
         approx_polygon,
     )
     cv2.imshow("perspective", perspective)
+    #cv2.imwrite('ex.jpeg', perspective)
     cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    cv2.destroyAllWindows()'''
+    
+    print(segmentation2polygon(get_segmentation()))
